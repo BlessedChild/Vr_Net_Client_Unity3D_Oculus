@@ -55,23 +55,29 @@ public class login : MonoBehaviour
 
                 if(recint[1].ToString() == UserId.ToString())
                 {
-                    if (countCube == 0)
-                    {
-                        Instantiate(cube111, new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001)), Quaternion.identity);
-                        countCube++;
-                    }
-                    cube111.transform.position = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
-                    Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
-                }
-                else if(recint[6].ToString() == UserId.ToString())
-                {
+                    /*
                     if (countCube == 0)
                     {
                         Instantiate(cube111, new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001)), Quaternion.identity);
                         countCube++;
                     }
+                    */
                     cube111.transform.position = new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001));
+
                     Debug.Log(recint[5].ToString() + "/" + recint[6].ToString() + "/" + ((float)(recint[7] * 0.00000001)).ToString() + "/" + ((float)(recint[8] * 0.00000001)).ToString() + "/" + ((float)(recint[9] * 0.00000001)).ToString() + "/");
+                }
+                else if(recint[6].ToString() == UserId.ToString())
+                {
+                    /*
+                    if (countCube == 0)
+                    {
+                        Instantiate(cube111, new Vector3((float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001), (float)(recint[5] * 0.00000001)), Quaternion.identity);
+                        countCube++;
+                    }
+                    */
+                    cube111.transform.position = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
+                    
+                    Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
                 }
 
                 SEND_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z);
