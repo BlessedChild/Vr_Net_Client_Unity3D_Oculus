@@ -50,24 +50,28 @@ public class login : MonoBehaviour
                 //string recint1 = networkre.pcak.ByteArraytoInt(RECEIVE_BUFFER);
                 //Debug.Log(recint1);
                 int[] recint = networkre.pcak.ServerToClient(RECEIVE_BUFFER);
-                Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + recint[2].ToString()  + "/" + recint[3].ToString() + "/" + recint[4].ToString() + "/");
 
-                if(GameObject.Find("cube112"))
+
+                if(recint[1].ToString() == UserId.ToString())
                 {
-                    cube111.transform.position = new Vector3(recint[0], recint[1], recint[2]);
-                }
-                else if(recint[1].ToString() == UserId.ToString())
-                {
-                    Instantiate(cube111, new Vector3(recint[2], recint[3], recint[4]), Quaternion.identity);
+                    if (!GameObject.Find("cube112"))
+                    {
+                        Instantiate(cube111, new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001)), Quaternion.identity);
+                    }
+                    cube111.transform.position = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
+                    Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
                 }
                 else if(recint[6].ToString() == UserId.ToString())
                 {
-                    Instantiate(cube111, new Vector3(recint[7], recint[8], recint[9]), Quaternion.identity);
+                    if (!GameObject.Find("cube112"))
+                    {
+                        Instantiate(cube111, new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001)), Quaternion.identity);
+                    }
+                    cube111.transform.position = new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001));
+                    Debug.Log(recint[5].ToString() + "/" + recint[6].ToString() + "/" + ((float)(recint[7] * 0.00000001)).ToString() + "/" + ((float)(recint[8] * 0.00000001)).ToString() + "/" + ((float)(recint[9] * 0.00000001)).ToString() + "/");
                 }
 
-
-
-                RECEIVE_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z);
+                SEND_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z);
 
                 issend = true;
             }
@@ -144,7 +148,7 @@ public class login : MonoBehaviour
             {
                 //buffer = networkre.pcak.InttoByteArray(timei);
                 Socket b = (Socket)s;
-                b.Send(RECEIVE_BUFFER, RECEIVE_BUFFER.Length, SocketFlags.None);
+                b.Send(SEND_BUFFER, SEND_BUFFER.Length, SocketFlags.None);
 
                 //Debug.Log("FromClient: send to server: ... ");
                 Thread.Sleep(20);
@@ -161,7 +165,7 @@ public class login : MonoBehaviour
             if (!issend)
             {
                 Socket a = (Socket)s;
-                count = a.Receive(RECEIVE_BUFFER, 12, 0);
+                count = a.Receive(RECEIVE_BUFFER, 40, 0);
                 /*
                 if (count > 0)
                 {
