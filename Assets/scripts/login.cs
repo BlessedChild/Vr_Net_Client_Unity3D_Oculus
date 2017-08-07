@@ -49,8 +49,8 @@ public class login : MonoBehaviour
             {
                 //string recint1 = networkre.pcak.ByteArraytoInt(RECEIVE_BUFFER);
                 //Debug.Log(recint1);
-                float[] recint = networkre.pcak.ByteToFloar(RECEIVE_BUFFER);
-                Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + recint[2].ToString()  + "/");
+                int[] recint = networkre.pcak.ServerToClient(RECEIVE_BUFFER);
+                Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + recint[2].ToString()  + "/" + recint[3].ToString() + "/" + recint[4].ToString() + "/");
 
                 if(GameObject.Find("cube112"))
                 {
@@ -101,7 +101,7 @@ public class login : MonoBehaviour
 
     private void initGame()
     {
-        string ip = "192.168.1.252";
+        string ip = "192.168.15.28";
         IPAddress ipAddress = IPAddress.Parse(ip);
         Socket a = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         a.Connect(ip, 6666);

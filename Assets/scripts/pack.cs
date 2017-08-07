@@ -219,5 +219,67 @@ namespace networkre
 
             return b; //返回打包好的数据
         }
+
+        public static int[] ServerToClient(byte[] b)
+        {
+            int[] iOutcome = new int[10];
+            byte bLoop;
+
+            for (int i = 0; i < 40; i++)
+            {
+                if (i < 4)
+                {
+                    bLoop = b[i];
+                    iOutcome[0] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 3 && i < 8)
+                {
+                    bLoop = b[i];
+                    iOutcome[1] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 7 && i < 12)
+                {
+                    bLoop = b[i];
+                    iOutcome[2] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 11 && i < 16)
+                {
+                    bLoop = b[i];
+                    iOutcome[3] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 15 && i < 20)
+                {
+                    bLoop = b[i];
+                    iOutcome[4] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 19 && i < 24)
+                {
+                    bLoop = b[i];
+                    iOutcome[5] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 23 && i < 28)
+                {
+                    bLoop = b[i];
+                    iOutcome[6] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 27 && i < 32)
+                {
+                    bLoop = b[i];
+                    iOutcome[7] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 31 && i < 36)
+                {
+                    bLoop = b[i];
+                    iOutcome[8] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 35 && i < 40)
+                {
+                    bLoop = b[i];
+                    iOutcome[9] += (bLoop & 0xff) << (8 * i);
+                }
+            }
+
+            return iOutcome;
+        }
     }
 }
