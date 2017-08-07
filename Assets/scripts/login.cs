@@ -9,6 +9,7 @@ using UnityEngine;
 public class login : MonoBehaviour
 {
     public GameObject cube111;
+    private int countCube = 0;
     public int UserId = 1;
     public int TotalnumberOfUsers = 1;
 
@@ -54,18 +55,20 @@ public class login : MonoBehaviour
 
                 if(recint[1].ToString() == UserId.ToString())
                 {
-                    if (!GameObject.Find("cube112"))
+                    if (countCube == 0)
                     {
                         Instantiate(cube111, new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001)), Quaternion.identity);
+                        countCube++;
                     }
                     cube111.transform.position = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
                     Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
                 }
                 else if(recint[6].ToString() == UserId.ToString())
                 {
-                    if (!GameObject.Find("cube112"))
+                    if (countCube == 0)
                     {
                         Instantiate(cube111, new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001)), Quaternion.identity);
+                        countCube++;
                     }
                     cube111.transform.position = new Vector3((float)(recint[7] * 0.00000001), (float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001));
                     Debug.Log(recint[5].ToString() + "/" + recint[6].ToString() + "/" + ((float)(recint[7] * 0.00000001)).ToString() + "/" + ((float)(recint[8] * 0.00000001)).ToString() + "/" + ((float)(recint[9] * 0.00000001)).ToString() + "/");
