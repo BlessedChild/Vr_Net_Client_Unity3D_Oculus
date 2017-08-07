@@ -9,6 +9,9 @@ using UnityEngine;
 public class login : MonoBehaviour
 {
     public GameObject cube111;
+    public int UserId = 1;
+    public int TotalnumberOfUsers = 1;
+
 
     static byte[] RECEIVE_BUFFER = new byte[1024];
     static byte[] SEND_BUFFER = new byte[1024];
@@ -49,9 +52,22 @@ public class login : MonoBehaviour
                 float[] recint = networkre.pcak.ByteToFloar(RECEIVE_BUFFER);
                 Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + recint[2].ToString()  + "/");
 
-                Instantiate(cube111, new Vector3(recint[0], recint[1], recint[2]), Quaternion.identity);
+                if(GameObject.Find("cube112"))
+                {
+                    cube111.transform.position = new Vector3(recint[0], recint[1], recint[2]);
+                }
+                else if(recint[1].ToString() == UserId.ToString())
+                {
+                    Instantiate(cube111, new Vector3(recint[2], recint[3], recint[4]), Quaternion.identity);
+                }
+                else if(recint[6].ToString() == UserId.ToString())
+                {
+                    Instantiate(cube111, new Vector3(recint[7], recint[8], recint[9]), Quaternion.identity);
+                }
 
-                RECEIVE_BUFFER = networkre.pcak.ClientToServer(_x, _y, _z);
+
+
+                RECEIVE_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z);
 
                 issend = true;
             }
@@ -85,7 +101,7 @@ public class login : MonoBehaviour
 
     private void initGame()
     {
-        string ip = "192.168.15.156";
+        string ip = "192.168.1.252";
         IPAddress ipAddress = IPAddress.Parse(ip);
         Socket a = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         a.Connect(ip, 6666);

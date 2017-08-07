@@ -81,6 +81,26 @@ namespace networkre
             return re;
         }
 
+        //用原始的办法 一步一步手工解析协议
+
+        public static int ByteToInt_TotalNumberOfUsers(byte[] b)
+        {
+            int iOutcome = 0;
+
+            byte bLoop;
+            for (int i = 0; i < 4; i++)
+            {
+                if (i < 4)
+                {
+                    bLoop = b[i];
+                    iOutcome += (bLoop & 0xff) << (8 * i);
+                }
+            }
+
+            return iOutcome;
+        }
+
+        //2
         public static float[] ByteToFloar(byte[] b)
         {
             byte bLoop;
@@ -93,33 +113,33 @@ namespace networkre
             float f2 = 0;
             float f3 = 0;
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 7; i < 20; i++)
             {
-                if (i < 4)
+                if (i < 11)
                 {
                     bLoop = b[i];
                     re1 += (bLoop & 0xff) << (8 * i);
-                    if(i ==3)
+                    if(i == 10)
                     {
                         f1 = (float)(re1 * 0.00000001);
                         fff[0] = f1;
                     }
                 }
-                if (i > 3 && i < 8)
+                if (i > 10 && i < 15)
                 {
                     bLoop = b[i];
                     re2 += (bLoop & 0xff) << (8 * i);
-                    if(i == 7)
+                    if(i == 14)
                     {
                         f2 = (float)(re2 * 0.00000001);
                         fff[1] = f2;
                     }
                 }
-                if (i > 7 && i < 12)
+                if (i > 15 && i < 20)
                 {
                     bLoop = b[i];
                     re3 += (bLoop & 0xff) << (8 * i);
-                    if(i == 11)
+                    if(i == 19)
                     {
                         f3 = (float)(re3 * 0.00000001);
                         fff[2] = f3;
@@ -167,24 +187,37 @@ namespace networkre
         }
         */
 
-        public static byte[] ClientToServer(int x, int y, int z)
+        //client打包协议的函数，这里把client端逻辑的数据打包成byte数组发送给server端
+        public static byte[] ClientToServer(int TotalnumberOfUsers, int UserId, int position_x, int position_y, int position_z)
         {
-            byte[] b = new byte[12];
-            b[0] = (byte)(x & 0xff);
-            b[1] = (byte)(x >> 8 & 0xff);
-            b[2] = (byte)(x >> 16 & 0xff);
-            b[3] = (byte)(x >> 24 & 0xff);
+            byte[] b = new byte[20];  //协议内容的长度
 
-            b[4] = (byte)(y >> 32 & 0xff);
-            b[5] = (byte)(y >> 40 & 0xff);
-            b[6] = (byte)(y >> 48 & 0xff);
-            b[7] = (byte)(y >> 56 & 0xff);
+            b[0] = (byte)(TotalnumberOfUsers & 0xff);
+            b[1] = (byte)(TotalnumberOfUsers >> 8 & 0xff);
+            b[2] = (byte)(TotalnumberOfUsers >> 16 & 0xff);
+            b[3] = (byte)(TotalnumberOfUsers >> 24 & 0xff);
 
-            b[8] = (byte)(z>> 64 & 0xff);
-            b[9] = (byte)(z >> 72 & 0xff);
-            b[10] = (byte)(z >> 80 & 0xff);
-            b[11] = (byte)(z >> 88 & 0xff);
-            return b;
+            b[4] = (byte)(UserId >> 32 & 0xff);
+            b[5] = (byte)(UserId >> 40 & 0xff);
+            b[6] = (byte)(UserId >> 48 & 0xff);
+            b[7] = (byte)(UserId >> 56 & 0xff);
+
+            b[8] = (byte)(position_x >> 64 & 0xff);
+            b[9] = (byte)(position_x >> 72 & 0xff);
+            b[10] = (byte)(position_x >> 80 & 0xff);
+            b[11] = (byte)(position_x >> 88 & 0xff);
+
+            b[12] = (byte)(position_y >> 96 & 0xff);
+            b[13] = (byte)(position_y >> 104 & 0xff);
+            b[14] = (byte)(position_y >> 112 & 0xff);
+            b[15] = (byte)(position_y >> 120 & 0xff);
+
+            b[16] = (byte)(position_z >> 128 & 0xff);
+            b[17] = (byte)(position_z >> 136 & 0xff);
+            b[18] = (byte)(position_z >> 144 & 0xff);
+            b[19] = (byte)(position_z >> 152 & 0xff);
+
+            return b; //返回打包好的数据
         }
     }
 }
