@@ -188,9 +188,9 @@ namespace networkre
         */
 
         //client打包协议的函数，这里把client端逻辑的数据打包成byte数组发送给server端
-        public static byte[] ClientToServer(int TotalnumberOfUsers, int UserId, int position_x, int position_y, int position_z)
+        public static byte[] ClientToServer(int TotalnumberOfUsers, int UserId, int position_x, int position_y, int position_z, int rotation_x, int rotation_y, int rotation_z)
         {
-            byte[] b = new byte[20];  //协议内容的长度
+            byte[] b = new byte[32];  //协议内容的长度
 
             b[0] = (byte)(TotalnumberOfUsers & 0xff);
             b[1] = (byte)(TotalnumberOfUsers >> 8 & 0xff);
@@ -217,15 +217,30 @@ namespace networkre
             b[18] = (byte)(position_z >> 144 & 0xff);
             b[19] = (byte)(position_z >> 152 & 0xff);
 
+            b[20] = (byte)(rotation_x >> 160 & 0xff);
+            b[21] = (byte)(rotation_x >> 168 & 0xff);
+            b[22] = (byte)(rotation_x >> 176 & 0xff);
+            b[23] = (byte)(rotation_x >> 184 & 0xff);
+
+            b[24] = (byte)(rotation_y >> 192 & 0xff);
+            b[25] = (byte)(rotation_y >> 200 & 0xff);
+            b[26] = (byte)(rotation_y >> 208 & 0xff);
+            b[27] = (byte)(rotation_y >> 216 & 0xff);
+
+            b[28] = (byte)(rotation_z >> 224 & 0xff);
+            b[29] = (byte)(rotation_z >> 232 & 0xff);
+            b[30] = (byte)(rotation_z >> 240 & 0xff);
+            b[31] = (byte)(rotation_z >> 248 & 0xff);
+
             return b; //返回打包好的数据
         }
 
         public static int[] ServerToClient(byte[] b)
         {
-            int[] iOutcome = new int[10];
+            int[] iOutcome = new int[16];
             byte bLoop;
 
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 64; i++)
             {
                 if (i < 4)
                 {
@@ -276,6 +291,36 @@ namespace networkre
                 {
                     bLoop = b[i];
                     iOutcome[9] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 39 && i < 44)
+                {
+                    bLoop = b[i];
+                    iOutcome[10] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 43 && i < 48)
+                {
+                    bLoop = b[i];
+                    iOutcome[11] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 47 && i < 52)
+                {
+                    bLoop = b[i];
+                    iOutcome[12] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 51 && i < 56)
+                {
+                    bLoop = b[i];
+                    iOutcome[13] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 55 && i < 60)
+                {
+                    bLoop = b[i];
+                    iOutcome[14] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 59 && i < 64)
+                {
+                    bLoop = b[i];
+                    iOutcome[15] += (bLoop & 0xff) << (8 * i);
                 }
             }
 
