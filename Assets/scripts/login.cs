@@ -74,7 +74,9 @@ public class login : MonoBehaviour
                     }
                     */
                     cube111.transform.position = new Vector3((float)(recint[10] * 0.00000001), (float)(recint[11] * 0.00000001), (float)(recint[12] * 0.00000001));
+                    cube111.transform.forward = new Vector3((float)(recint[10] * 0.00000001), (float)(recint[11] * 0.00000001), (float)(recint[12] * 0.00000001));
                     cube111.transform.rotation = new Quaternion((float)(recint[13] * 0.00000001), (float)(recint[14] * 0.00000001), (float)(recint[15] * 0.00000001), Quaternion.identity.w);
+
 
                     //Debug.Log(recint[5].ToString() + "/" + recint[6].ToString() + "/" + ((float)(recint[7] * 0.00000001)).ToString() + "/" + ((float)(recint[8] * 0.00000001)).ToString() + "/" + ((float)(recint[9] * 0.00000001)).ToString() + "/");
                 }
@@ -88,6 +90,7 @@ public class login : MonoBehaviour
                     }
                     */
                     cube111.transform.position = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
+                    cube111.transform.forward = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
                     cube111.transform.rotation = new Quaternion((float)(recint[5] * 0.00000001), (float)(recint[6] * 0.00000001), (float)(recint[7] * 0.00000001), Quaternion.identity.w);
                     //Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
                 }
