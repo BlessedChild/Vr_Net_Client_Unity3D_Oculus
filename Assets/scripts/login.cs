@@ -10,7 +10,9 @@ using UnityEditor;
 public class login : MonoBehaviour
 {
     public GameObject cube111;
-    public GameObject LeftHand;
+    public GameObject otherlefthand;
+    public GameObject otherrighthand;
+
     private int countCube = 0;
     public int UserId = 1;
     public int TotalnumberOfUsers = 1;
@@ -21,7 +23,8 @@ public class login : MonoBehaviour
     static byte[] SEND_BUFFER = new byte[1024];
 
     public Transform character_;
-    public Transform lefthand;
+    public Transform mylefthand;
+    public Transform myrighthand;
     private float x_;
     private float y_;
     private float z_;
@@ -34,6 +37,13 @@ public class login : MonoBehaviour
     private float lefthand_rotation_x;
     private float lefthand_rotation_y;
     private float lefthand_rotation_z;
+    private float righthand_position_x;
+    private float righthand_position_y;
+    private float righthand_position_z;
+    private float righthand_rotation_x;
+    private float righthand_rotation_y;
+    private float righthand_rotation_z;
+
 
     public static bool isclientconnected = false;
     public static bool issend = false;
@@ -56,13 +66,18 @@ public class login : MonoBehaviour
             x_r = character_.rotation.x;
             y_r = character_.rotation.y;
             z_r = character_.rotation.z;
-            lefthand_position_x = lefthand.position.x;
-            lefthand_position_y = lefthand.position.y;
-            lefthand_position_z = lefthand.position.z;
-            lefthand_rotation_x = lefthand.rotation.x;
-            lefthand_rotation_y = lefthand.rotation.y;
-            lefthand_rotation_z = lefthand.rotation.z;
-
+            lefthand_position_x = mylefthand.position.x;
+            lefthand_position_y = mylefthand.position.y;
+            lefthand_position_z = mylefthand.position.z;
+            lefthand_rotation_x = mylefthand.rotation.x;
+            lefthand_rotation_y = mylefthand.rotation.y;
+            lefthand_rotation_z = mylefthand.rotation.z;
+            righthand_position_x = myrighthand.position.x;
+            righthand_position_y = myrighthand.position.y;
+            righthand_position_z = myrighthand.position.z;
+            righthand_rotation_x = myrighthand.rotation.x;
+            righthand_rotation_y = myrighthand.rotation.y;
+            righthand_rotation_z = myrighthand.rotation.z;
 
             int _x = (int)(x_ * 100000000);
             int _y = (int)(y_ * 100000000);
@@ -76,6 +91,13 @@ public class login : MonoBehaviour
             int lh_r_x = (int)(lefthand_rotation_x * 100000000);
             int lh_r_y = (int)(lefthand_rotation_y * 100000000);
             int lh_r_z = (int)(lefthand_rotation_z * 100000000);
+            int rh_p_x = (int)(righthand_position_x * 100000000);
+            int rh_p_y = (int)(righthand_position_y * 100000000);
+            int rh_p_z = (int)(righthand_position_z * 100000000);
+            int rh_r_x = (int)(righthand_rotation_x * 100000000);
+            int rh_r_y = (int)(righthand_rotation_y * 100000000);
+            int rh_r_z = (int)(righthand_rotation_z * 100000000);
+
             //Debug.Log(_x + _y + _z);
 
             if (!issend)
@@ -94,18 +116,19 @@ public class login : MonoBehaviour
                         countCube++;
                     }
                     */
-                    cube111.transform.position = new Vector3((float)(recint[16] * 0.00000001), (float)(recint[17] * 0.00000001), (float)(recint[18] * 0.00000001));
-                    cube111.transform.forward = new Vector3((float)(recint[16] * 0.00000001), (float)(recint[17] * 0.00000001), (float)(recint[18] * 0.00000001));
-                    cube111.transform.rotation = new Quaternion((float)(recint[19] * 0.00000001), (float)(recint[20] * 0.00000001), (float)(recint[21] * 0.00000001), Quaternion.identity.w);
-                    LeftHand.transform.position = new Vector3((float)(recint[22] * 0.00000001), (float)(recint[23] * 0.00000001), (float)(recint[24] * 0.00000001));
-                    LeftHand.transform.forward = new Vector3((float)(recint[22] * 0.00000001), (float)(recint[23] * 0.00000001), (float)(recint[24] * 0.00000001));
-                    LeftHand.transform.rotation = new Quaternion((float)(recint[25] * 0.00000001), (float)(recint[26] * 0.00000001), (float)(recint[27] * 0.00000001), Quaternion.identity.w);
-
-
+                    cube111.transform.position = new Vector3((float)(recint[22] * 0.00000001), (float)(recint[23] * 0.00000001), (float)(recint[24] * 0.00000001));
+                    cube111.transform.forward = new Vector3((float)(recint[22] * 0.00000001), (float)(recint[23] * 0.00000001), (float)(recint[24] * 0.00000001));
+                    cube111.transform.rotation = new Quaternion((float)(recint[25] * 0.00000001), (float)(recint[26] * 0.00000001), (float)(recint[27] * 0.00000001), Quaternion.identity.w);
+                    otherlefthand.transform.position = new Vector3((float)(recint[28] * 0.00000001), (float)(recint[29] * 0.00000001), (float)(recint[30] * 0.00000001));
+                    otherlefthand.transform.forward = new Vector3((float)(recint[28] * 0.00000001), (float)(recint[29] * 0.00000001), (float)(recint[30] * 0.00000001));
+                    otherlefthand.transform.rotation = new Quaternion((float)(recint[31] * 0.00000001), (float)(recint[32] * 0.00000001), (float)(recint[33] * 0.00000001), Quaternion.identity.w);
+                    otherrighthand.transform.position = new Vector3((float)(recint[34] * 0.00000001), (float)(recint[35] * 0.00000001), (float)(recint[36] * 0.00000001));
+                    otherrighthand.transform.forward = new Vector3((float)(recint[34] * 0.00000001), (float)(recint[35] * 0.00000001), (float)(recint[36] * 0.00000001));
+                    otherrighthand.transform.rotation = new Quaternion((float)(recint[37] * 0.00000001), (float)(recint[38] * 0.00000001), (float)(recint[39] * 0.00000001), Quaternion.identity.w);
 
                     //Debug.Log(recint[5].ToString() + "/" + recint[6].ToString() + "/" + ((float)(recint[7] * 0.00000001)).ToString() + "/" + ((float)(recint[8] * 0.00000001)).ToString() + "/" + ((float)(recint[9] * 0.00000001)).ToString() + "/");
                 }
-                else if(recint[15].ToString() == UserId.ToString())
+                else if(recint[21].ToString() == UserId.ToString())
                 {
                     /*
                     if (countCube == 0)
@@ -118,13 +141,17 @@ public class login : MonoBehaviour
                     cube111.transform.forward = new Vector3((float)(recint[2] * 0.00000001), (float)(recint[3] * 0.00000001), (float)(recint[4] * 0.00000001));
                     cube111.transform.rotation = new Quaternion((float)(recint[5] * 0.00000001), (float)(recint[6] * 0.00000001), (float)(recint[7] * 0.00000001), Quaternion.identity.w);
                     //Debug.Log(recint[0].ToString() + "/" + recint[1].ToString() + "/" + ((float)(recint[2] * 0.00000001)).ToString() + "/" + ((float)(recint[3] * 0.00000001)).ToString() + "/" + ((float)(recint[4] * 0.00000001)).ToString() + "/");
-                    LeftHand.transform.position = new Vector3((float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001), (float)(recint[10] * 0.00000001));
-                    LeftHand.transform.forward = new Vector3((float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001), (float)(recint[10] * 0.00000001));
-                    LeftHand.transform.rotation = new Quaternion((float)(recint[11] * 0.00000001), (float)(recint[12] * 0.00000001), (float)(recint[13] * 0.00000001), Quaternion.identity.w);
+                    otherlefthand.transform.position = new Vector3((float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001), (float)(recint[10] * 0.00000001));
+                    otherlefthand.transform.forward = new Vector3((float)(recint[8] * 0.00000001), (float)(recint[9] * 0.00000001), (float)(recint[10] * 0.00000001));
+                    otherlefthand.transform.rotation = new Quaternion((float)(recint[11] * 0.00000001), (float)(recint[12] * 0.00000001), (float)(recint[13] * 0.00000001), Quaternion.identity.w);
+                    otherrighthand.transform.position = new Vector3((float)(recint[14] * 0.00000001), (float)(recint[15] * 0.00000001), (float)(recint[16] * 0.00000001));
+                    otherrighthand.transform.forward = new Vector3((float)(recint[14] * 0.00000001), (float)(recint[15] * 0.00000001), (float)(recint[16] * 0.00000001));
+                    otherrighthand.transform.rotation = new Quaternion((float)(recint[17] * 0.00000001), (float)(recint[18] * 0.00000001), (float)(recint[19] * 0.00000001), Quaternion.identity.w);
+
 
                 }
 
-                SEND_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z, r_x, r_y, r_z,lh_p_x,lh_p_y,lh_p_z,lh_r_x,lh_r_y,lh_r_z);
+                SEND_BUFFER = networkre.pcak.ClientToServer(TotalnumberOfUsers, UserId, _x, _y, _z, r_x, r_y, r_z,lh_p_x,lh_p_y,lh_p_z,lh_r_x,lh_r_y,lh_r_z,rh_p_x,rh_p_y,rh_p_z,rh_r_x,rh_r_y,rh_r_z);
 
                 issend = true;
             }
@@ -214,7 +241,7 @@ public class login : MonoBehaviour
             if (!issend)
             {
                 Socket a = (Socket)s;
-                count = a.Receive(RECEIVE_BUFFER, 112, 0);
+                count = a.Receive(RECEIVE_BUFFER, 160, 0);
                 /*
                 if (count > 0)
                 {

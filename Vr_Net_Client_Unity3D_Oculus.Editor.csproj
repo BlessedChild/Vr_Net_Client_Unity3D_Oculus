@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{714A9550-3309-F4A0-A292-2DD4A6FF9E23}</ProjectGuid>
+    <ProjectGuid>{06177BBE-BAD9-5493-26A8-F1F2417FE8CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -123,9 +123,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Vr_Net_Client_Unity3D_Oculus.csproj">
-      <Project>{0F0EE6DA-1D1D-5311-7B35-95C9D014F4D7}</Project>
-      <Name>Vr_Net_Client_Unity3D_Oculus</Name>
+    <ProjectReference Include="Vr_Net_Client_Unity3D_Oculus-master.csproj">
+      <Project>{67BDCA20-6BA4-2794-433D-2F931A7F1417}</Project>
+      <Name>Vr_Net_Client_Unity3D_Oculus-master</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
