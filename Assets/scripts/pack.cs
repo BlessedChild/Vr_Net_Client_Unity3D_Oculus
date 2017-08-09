@@ -188,9 +188,10 @@ namespace networkre
         */
 
         //client打包协议的函数，这里把client端逻辑的数据打包成byte数组发送给server端
-        public static byte[] ClientToServer(int TotalnumberOfUsers, int UserId, int position_x, int position_y, int position_z, int rotation_x, int rotation_y, int rotation_z)
+        public static byte[] ClientToServer(int TotalnumberOfUsers, int UserId, int position_x, int position_y, int position_z, int rotation_x, int rotation_y, int rotation_z,int lefthand_position_x,
+            int lefthand_position_y, int lefthand_position_z, int lefthand_rotation_x, int lefthand_rotation_y, int lefthand_rotation_z)
         {
-            byte[] b = new byte[32];  //协议内容的长度
+            byte[] b = new byte[56];  //协议内容的长度
 
             b[0] = (byte)(TotalnumberOfUsers & 0xff);
             b[1] = (byte)(TotalnumberOfUsers >> 8 & 0xff);
@@ -232,15 +233,47 @@ namespace networkre
             b[30] = (byte)(rotation_z >> 240 & 0xff);
             b[31] = (byte)(rotation_z >> 248 & 0xff);
 
+            b[32] = (byte)(lefthand_position_x >> 256 & 0xff);
+            b[33] = (byte)(lefthand_position_x >> 264 & 0xff);
+            b[34] = (byte)(lefthand_position_x >> 272 & 0xff);
+            b[35] = (byte)(lefthand_position_x >> 280 & 0xff);
+
+            b[36] = (byte)(lefthand_position_y >> 288 & 0xff);
+            b[37] = (byte)(lefthand_position_y >> 296 & 0xff);
+            b[38] = (byte)(lefthand_position_y >> 304 & 0xff);
+            b[39] = (byte)(lefthand_position_y >> 312 & 0xff);
+
+            b[40] = (byte)(lefthand_position_z >> 320 & 0xff);
+            b[41] = (byte)(lefthand_position_z >> 328 & 0xff);
+            b[42] = (byte)(lefthand_position_z >> 336 & 0xff);
+            b[43] = (byte)(lefthand_position_z >> 344 & 0xff);
+
+            b[44] = (byte)(lefthand_rotation_x >> 352 & 0xff);
+            b[45] = (byte)(lefthand_rotation_x >> 360 & 0xff);
+            b[46] = (byte)(lefthand_rotation_x >> 368 & 0xff);
+            b[47] = (byte)(lefthand_rotation_x >> 376 & 0xff);
+
+            b[48] = (byte)(lefthand_rotation_y >> 384 & 0xff);
+            b[49] = (byte)(lefthand_rotation_y >> 392 & 0xff);
+            b[50] = (byte)(lefthand_rotation_y >> 400 & 0xff);
+            b[51] = (byte)(lefthand_rotation_y >> 408 & 0xff);
+
+            b[52] = (byte)(lefthand_rotation_z >> 416 & 0xff);
+            b[53] = (byte)(lefthand_rotation_z >> 424 & 0xff);
+            b[54] = (byte)(lefthand_rotation_z >> 432 & 0xff);
+            b[55] = (byte)(lefthand_rotation_z >> 440 & 0xff);
+
+
+
             return b; //返回打包好的数据
         }
 
         public static int[] ServerToClient(byte[] b)
         {
-            int[] iOutcome = new int[16];
+            int[] iOutcome = new int[28];
             byte bLoop;
 
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < 112; i++)
             {
                 if (i < 4)
                 {
@@ -322,6 +355,67 @@ namespace networkre
                     bLoop = b[i];
                     iOutcome[15] += (bLoop & 0xff) << (8 * i);
                 }
+                if (i > 63 && i < 68)
+                {
+                    bLoop = b[i];
+                    iOutcome[16] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 67 && i < 72)
+                {
+                    bLoop = b[i];
+                    iOutcome[17] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 71 && i < 76)
+                {
+                    bLoop = b[i];
+                    iOutcome[18] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 75 && i < 80)
+                {
+                    bLoop = b[i];
+                    iOutcome[19] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 79 && i < 84)
+                {
+                    bLoop = b[i];
+                    iOutcome[20] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 83 && i < 88)
+                {
+                    bLoop = b[i];
+                    iOutcome[21] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 87 && i < 92)
+                {
+                    bLoop = b[i];
+                    iOutcome[22] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 91 && i < 96)
+                {
+                    bLoop = b[i];
+                    iOutcome[23] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 95 && i < 100)
+                {
+                    bLoop = b[i];
+                    iOutcome[24] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 99 && i < 104)
+                {
+                    bLoop = b[i];
+                    iOutcome[25] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 103 && i < 108)
+                {
+                    bLoop = b[i];
+                    iOutcome[26] += (bLoop & 0xff) << (8 * i);
+                }
+                if (i > 107 && i < 112)
+                {
+                    bLoop = b[i];
+                    iOutcome[27] += (bLoop & 0xff) << (8 * i);
+                }
+
             }
 
             return iOutcome;
